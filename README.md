@@ -24,51 +24,57 @@ small e-readers.
 
 #### Output
 
-<img src="thumbs/baudrillard_output_page_1.jpg"/>
-<img src="thumbs/baudrillard_output_page_2.jpg"/>
-<img src="thumbs/baudrillard_output_page_3.jpg"/>
-<img src="thumbs/baudrillard_output_page_4.jpg"/>
-<img src="thumbs/baudrillard_output_page_5.jpg"/>
-<img src="thumbs/baudrillard_output_page_6.jpg"/>
+<p float="left">
+    <img src="thumbs/baudrillard_output_page_1.jpg"/>
+    <img src="thumbs/baudrillard_output_page_2.jpg"/>
+    <img src="thumbs/baudrillard_output_page_3.jpg"/>
+    <img src="thumbs/baudrillard_output_page_4.jpg"/>
+    <img src="thumbs/baudrillard_output_page_5.jpg"/>
+    <img src="thumbs/baudrillard_output_page_6.jpg"/>
+</p>
 
 ### Example 2
 
 #### Input
 
-<img src="thumbs/edinburgh_input_page_1.jpg"/>
-<img src="thumbs/edinburgh_input_page_2.jpg"/>
-<img src="thumbs/edinburgh_input_page_3.jpg"/>
-<img src="thumbs/edinburgh_input_page_4.jpg"/>
+<p float="left">
+    <img src="thumbs/edinburgh_input_page_1.jpg"/>
+    <img src="thumbs/edinburgh_input_page_2.jpg"/>
+    <img src="thumbs/edinburgh_input_page_3.jpg"/>
+    <img src="thumbs/edinburgh_input_page_4.jpg"/>
+</p>
 
 #### Output
 
-<img src="thumbs/edinburgh_output_page_1.jpg"/>
-<img src="thumbs/edinburgh_output_page_2.jpg"/>
-<img src="thumbs/edinburgh_output_page_3.jpg"/>
-<img src="thumbs/edinburgh_output_page_4.jpg"/>
-<img src="thumbs/edinburgh_output_page_5.jpg"/>
-<img src="thumbs/edinburgh_output_page_6.jpg"/>
-<img src="thumbs/edinburgh_output_page_7.jpg"/>
-<img src="thumbs/edinburgh_output_page_8.jpg"/>
-<img src="thumbs/edinburgh_output_page_9.jpg"/>
-<img src="thumbs/edinburgh_output_page_10.jpg"/>
-<img src="thumbs/edinburgh_output_page_11.jpg"/>
-<img src="thumbs/edinburgh_output_page_12.jpg"/>
-<img src="thumbs/edinburgh_output_page_13.jpg"/>
-<img src="thumbs/edinburgh_output_page_14.jpg"/>
-<img src="thumbs/edinburgh_output_page_15.jpg"/>
-<img src="thumbs/edinburgh_output_page_16.jpg"/>
-<img src="thumbs/edinburgh_output_page_17.jpg"/>
-<img src="thumbs/edinburgh_output_page_18.jpg"/>
-<img src="thumbs/edinburgh_output_page_19.jpg"/>
-<img src="thumbs/edinburgh_output_page_20.jpg"/>
-<img src="thumbs/edinburgh_output_page_21.jpg"/>
-<img src="thumbs/edinburgh_output_page_22.jpg"/>
-<img src="thumbs/edinburgh_output_page_23.jpg"/>
-<img src="thumbs/edinburgh_output_page_24.jpg"/>
-<img src="thumbs/edinburgh_output_page_25.jpg"/>
-<img src="thumbs/edinburgh_output_page_26.jpg"/>
-<img src="thumbs/edinburgh_output_page_27.jpg"/>
+<p float="left">
+    <img src="thumbs/edinburgh_output_page_1.jpg"/>
+    <img src="thumbs/edinburgh_output_page_2.jpg"/>
+    <img src="thumbs/edinburgh_output_page_3.jpg"/>
+    <img src="thumbs/edinburgh_output_page_4.jpg"/>
+    <img src="thumbs/edinburgh_output_page_5.jpg"/>
+    <img src="thumbs/edinburgh_output_page_6.jpg"/>
+    <img src="thumbs/edinburgh_output_page_7.jpg"/>
+    <img src="thumbs/edinburgh_output_page_8.jpg"/>
+    <img src="thumbs/edinburgh_output_page_9.jpg"/>
+    <img src="thumbs/edinburgh_output_page_10.jpg"/>
+    <img src="thumbs/edinburgh_output_page_11.jpg"/>
+    <img src="thumbs/edinburgh_output_page_12.jpg"/>
+    <img src="thumbs/edinburgh_output_page_13.jpg"/>
+    <img src="thumbs/edinburgh_output_page_14.jpg"/>
+    <img src="thumbs/edinburgh_output_page_15.jpg"/>
+    <img src="thumbs/edinburgh_output_page_16.jpg"/>
+    <img src="thumbs/edinburgh_output_page_17.jpg"/>
+    <img src="thumbs/edinburgh_output_page_18.jpg"/>
+    <img src="thumbs/edinburgh_output_page_19.jpg"/>
+    <img src="thumbs/edinburgh_output_page_20.jpg"/>
+    <img src="thumbs/edinburgh_output_page_21.jpg"/>
+    <img src="thumbs/edinburgh_output_page_22.jpg"/>
+    <img src="thumbs/edinburgh_output_page_23.jpg"/>
+    <img src="thumbs/edinburgh_output_page_24.jpg"/>
+    <img src="thumbs/edinburgh_output_page_25.jpg"/>
+    <img src="thumbs/edinburgh_output_page_26.jpg"/>
+    <img src="thumbs/edinburgh_output_page_27.jpg"/>
+</p>
 
 # Requirements
 
@@ -79,13 +85,13 @@ sudo apt-get install tesseract-ocr
 # Usage
 
 ```java
-        RequestConfig requestConfig=RequestConfig
-        .builder()
-        .pdfFile(file)
-        .minPage(minPage)
-        .maxPage(maxPage)
-        .correctAngle(true)
-        .build();
+        RequestConfig requestConfig = RequestConfig
+            .builder()
+            .pdfFile(file)
+            .minPage(minPage)
+            .maxPage(maxPage)
+            .correctAngle(true)
+            .build();
 
         Processor processor=new Processor(requestConfig);
         processor.process();

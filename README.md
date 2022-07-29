@@ -4,14 +4,14 @@
 
 # About
 
-Some PDFs books found online are usually poorly rendered on small e-readers (e.g. Kindle Oasis).
+PDF books and articles found online are usually poorly rendered on small e-readers (e.g. Kindle Oasis).
 
 This lib uses OCR to correct the skewed angle of the page, crop around the text and re-paginate; as to optimize
 for the best reading experience on small e-readers.
 
-The code was initially written in 2018, along with an online converter website, that I decided to take down as it would
-cost quite a bit. OCR and image processing being resource-intensive. I also couldn't maintain it as I was working full
-time.
+The code was initially written in 2018, along with an online converter website that I decided to take down as it would
+cost quite a bit (OCR and image processing being quite resource-intensive). I also couldn't maintain it as I was working
+full time.
 
 Therefore, the project probably needs a bit of a cleanup.
 

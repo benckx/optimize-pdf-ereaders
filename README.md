@@ -6,7 +6,7 @@
 
 Some PDFs books found online are usually poorly rendered on small e-readers (e.g. Kindle Oasis).
 
-This lib uses OCR to correct the skewed angle of the page, crop around the text and re-paginate attempting to optimize
+This lib uses OCR to correct the skewed angle of the page, crop around the text and re-paginate; as to optimize
 for the best reading experience on small e-readers.
 
 The code was initially written in 2018, along with an online converter website, that I decided to take down as it would
@@ -147,4 +147,4 @@ sudo apt-get install tesseract-ocr
 * Move to Kotlin
 * Finish picture detection
 * Create a user-friendly runnable
-* Re-add tests
+* Re-add unit tests that can be shared publicly, adapt the other ones

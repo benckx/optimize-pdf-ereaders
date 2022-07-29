@@ -15,10 +15,12 @@ small e-readers.
 
 #### Input
 
-<img src="thumbs/baudrillard_input_page_1.jpg"/>
-<img src="thumbs/baudrillard_input_page_2.jpg"/>
-<img src="thumbs/baudrillard_input_page_3.jpg"/>
-<img src="thumbs/baudrillard_input_page_4.jpg"/>
+<p float="left">
+    <img src="thumbs/baudrillard_input_page_1.jpg"/>
+    <img src="thumbs/baudrillard_input_page_2.jpg"/>
+    <img src="thumbs/baudrillard_input_page_3.jpg"/>
+    <img src="thumbs/baudrillard_input_page_4.jpg"/>
+</p>
 
 #### Output
 
@@ -75,19 +77,20 @@ sudo apt-get install tesseract-ocr
 ```
 
 # Usage
-```java
-        RequestConfig requestConfig = RequestConfig
-                .builder()
-                .pdfFile(file)
-                .minPage(minPage)
-                .maxPage(maxPage)
-                .correctAngle(true)
-                .build();
 
-        Processor processor = new Processor(requestConfig);
+```java
+        RequestConfig requestConfig=RequestConfig
+        .builder()
+        .pdfFile(file)
+        .minPage(minPage)
+        .maxPage(maxPage)
+        .correctAngle(true)
+        .build();
+
+        Processor processor=new Processor(requestConfig);
         processor.process();
         processor.joinThread();
-        File outputFile = processor.writeToPDFFile(fileName + "optimized.pdf");
+        File outputFile=processor.writeToPDFFile(fileName+"optimized.pdf");
 ```
 
 # TODO

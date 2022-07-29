@@ -47,7 +47,7 @@ small e-readers.
 #### Output
 
 <p float="left">
-    <img src="thumbs/edinburgh_output_page_1.jpg"/>
+    <img style="border-width: 1px;border-color: red" src="thumbs/edinburgh_output_page_1.jpg"/>
     <img src="thumbs/edinburgh_output_page_2.jpg"/>
     <img src="thumbs/edinburgh_output_page_3.jpg"/>
     <img src="thumbs/edinburgh_output_page_4.jpg"/>

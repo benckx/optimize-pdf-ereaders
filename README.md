@@ -6,8 +6,16 @@
 
 Some PDFs books found online are usually poorly rendered on small e-readers (e.g. Kindle Oasis).
 
-This lib uses OCR to correct the angle, crop around the text and re-paginate in order for the best reading experience on
-small e-readers.
+This lib uses OCR to correct the skewed angle of the page, crop around the text and re-paginate attempting to optimize
+for the best reading experience on small e-readers.
+
+The code was initially written in 2018, along with an online converter website, that I decided to take down as it would
+cost quite a bit. OCR and image processing being resource-intensive. I also couldn't maintain it as I was working full
+time.
+
+Therefore, the project probably needs a bit of a cleanup.
+
+The unit tests using full PDF books can not be shared publicly.
 
 ## Examples
 
@@ -22,6 +30,8 @@ small e-readers.
     <img src="thumbs/baudrillard_input_page_4.jpg"/>
 </p>
 
+[download PDF](thumbs/baudrillard_extract.pdf)
+
 #### Output
 
 <p float="left">
@@ -32,6 +42,8 @@ small e-readers.
     <img src="thumbs/baudrillard_output_page_5.jpg"/>
     <img src="thumbs/baudrillard_output_page_6.jpg"/>
 </p>
+
+[download PDF](thumbs/baudrillard_output.pdf)
 
 ### Example 2
 
@@ -44,10 +56,12 @@ small e-readers.
     <img src="thumbs/edinburgh_input_page_4.jpg"/>
 </p>
 
+[download PDF](thumbs/edinburgh_extract.pdf)
+
 #### Output
 
 <p float="left">
-    <img style="border-width: 1px;border-color: red" src="thumbs/edinburgh_output_page_1.jpg"/>
+    <img src="thumbs/edinburgh_output_page_1.jpg"/>
     <img src="thumbs/edinburgh_output_page_2.jpg"/>
     <img src="thumbs/edinburgh_output_page_3.jpg"/>
     <img src="thumbs/edinburgh_output_page_4.jpg"/>
@@ -76,6 +90,34 @@ small e-readers.
     <img src="thumbs/edinburgh_output_page_27.jpg"/>
 </p>
 
+[download PDF](thumbs/edinburgh_output.pdf)
+
+### Example 3
+
+#### Input
+
+<p float="left">
+    <img src="thumbs/ellul_input_page_1.jpg"/>
+    <img src="thumbs/ellul_input_page_2.jpg"/>
+    <img src="thumbs/ellul_input_page_3.jpg"/>
+    <img src="thumbs/ellul_input_page_4.jpg"/>
+</p>
+
+[download PDF](thumbs/ellul_extract.pdf)
+
+#### Output
+
+<p float="left">
+    <img src="thumbs/ellul_output_page_1.jpg"/>
+    <img src="thumbs/ellul_output_page_2.jpg"/>
+    <img src="thumbs/ellul_output_page_3.jpg"/>
+    <img src="thumbs/ellul_output_page_4.jpg"/>
+    <img src="thumbs/ellul_output_page_5.jpg"/>
+    <img src="thumbs/ellul_output_page_6.jpg"/>
+</p>
+
+[download PDF](thumbs/ellul_output.pdf)
+
 # Requirements
 
 ```shell
@@ -85,18 +127,18 @@ sudo apt-get install tesseract-ocr
 # Usage
 
 ```java
-        RequestConfig requestConfig = RequestConfig
-            .builder()
-            .pdfFile(file)
-            .minPage(minPage)
-            .maxPage(maxPage)
-            .correctAngle(true)
-            .build();
+    RequestConfig requestConfig = RequestConfig
+        .builder()
+        .pdfFile(file)
+        .minPage(minPage)
+        .maxPage(maxPage)
+        .correctAngle(true)
+        .build();
 
-        Processor processor=new Processor(requestConfig);
-        processor.process();
-        processor.joinThread();
-        File outputFile=processor.writeToPDFFile(fileName+"optimized.pdf");
+    Processor processor = new Processor(requestConfig);
+    processor.process();
+    processor.joinThread();
+    File outputFile = processor.writeToPDFFile(fileName + "optimized.pdf");
 ```
 
 # TODO

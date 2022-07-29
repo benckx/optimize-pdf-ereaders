@@ -138,7 +138,7 @@ sudo apt-get install tesseract-ocr
     Processor processor = new Processor(requestConfig);
     processor.process();
     processor.joinThread();
-    File outputFile = processor.writeToPDFFile(fileName + "optimized.pdf");
+    File outputFile = processor.writeToPDFFile(fileName + "_optimized.pdf");
 ```
 
 # TODO

@@ -124,6 +124,8 @@ The unit tests using full PDF books can not be shared publicly.
 sudo apt-get install tesseract-ocr
 ```
 
+The data in `tessdata/` is found on https://github.com/tesseract-ocr/tessdata_best
+
 # Usage
 
 ```java

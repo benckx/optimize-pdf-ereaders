@@ -9,6 +9,7 @@ import org.apache.pdfbox.pdmodel.PDDocument
 import org.apache.pdfbox.rendering.ImageType
 import org.apache.pdfbox.rendering.PDFRenderer
 import org.junit.Test
+import java.awt.Color
 import java.awt.image.BufferedImage
 import java.io.File
 import java.nio.file.Files
@@ -23,7 +24,7 @@ import kotlin.streams.toList
 class ThumbsTest : LazyLogging {
 
     init {
-        val outputFolderFile = File(outputFolder)
+        val outputFolderFile = File(OUTPUT_FOLDER)
         if (outputFolderFile.exists()) {
             outputFolderFile.deleteRecursively()
         }
@@ -33,7 +34,7 @@ class ThumbsTest : LazyLogging {
     @Test
     fun generateThumbsFolder() {
         val inputFiles = Files
-            .list(Paths.get(inputFolder))
+            .list(Paths.get(INPUT_FOLDER))
             .toList()
             .filter { path -> path.name.endsWith("_extract.pdf") }
             .mapNotNull { path -> path.toFile() }
@@ -42,7 +43,7 @@ class ThumbsTest : LazyLogging {
         inputFiles
             .forEach { inputFile ->
                 // write thumbs of input file
-                writeThumbs(inputFile, "_input_page_")
+                writeThumbs(inputFile, "input_page")
 
                 // process the file with the lib
                 val requestConfig = RequestConfig.builder().pdfFile(inputFile)
@@ -51,37 +52,32 @@ class ThumbsTest : LazyLogging {
                 processor.joinThread()
 
                 // write the output
-                val outputFile = File(outputFolder + File.separator + cleanFileName(inputFile) + "_output.pdf")
+                val outputFile = File(OUTPUT_FOLDER + File.separator + canonicalFileName(inputFile) + "_output.pdf")
                 writeByteArrayToFile(outputFile, processor.writeToByteArray())
 
                 // write thumbs of output file
-                writeThumbs(outputFile, "_output_page_")
+                writeThumbs(outputFile, "output_page")
             }
     }
 
     private companion object : LazyLogging {
 
-        const val inputFolder = "thumbs"
-        const val outputFolder = "thumbs-test-output"
-        const val THUMBS_WIDTH = 150
+        const val INPUT_FOLDER = "thumbs"
+        const val OUTPUT_FOLDER = "thumbs-test-output"
+        const val THUMBS_WIDTH = 190
 
         fun writeThumbs(pdfFile: File, suffix: String) {
-            pdfToThumbs(pdfFile)
-                .forEachIndexed { index, image ->
-                    val fileName = cleanFileName(pdfFile) + suffix + (index + 1) + ".jpg"
-                    val filePath = outputFolder + File.separator + fileName
-                    ImageIO.write(image, "jpg", File(filePath))
-                }
-        }
-
-        fun pdfToThumbs(pdfFile: File, imageType: ImageType = ImageType.RGB): List<BufferedImage> {
             return PDDocument.load(pdfFile)
                 .use { doc ->
                     val pdfRenderer = PDFRenderer(doc)
                     IntRange(1, doc.numberOfPages)
-                        .map { pageIdx ->
-                            logger.debug("rendering page $pageIdx of ${pdfFile.name} to BufferedImage...")
-                            resizeToThumb(pdfRenderer.renderImageWithDPI(pageIdx - 1, 300f, imageType))
+                        .forEach { pageNum ->
+                            logger.debug("rendering page $pageNum of ${pdfFile.name} to BufferedImage...")
+                            val thumbFileName = canonicalFileName(pdfFile) + "_" + suffix + "_" + pageNum + ".jpg"
+                            val thumbFilePath = OUTPUT_FOLDER + File.separator + thumbFileName
+                            val pageAsImage = pdfRenderer.renderImageWithDPI(pageNum - 1, 150f, ImageType.RGB)
+                            val thumbImage = addBorder(resizeToThumb(pageAsImage))
+                            ImageIO.write(thumbImage, "jpg", File(thumbFilePath))
                         }
                 }
         }
@@ -94,7 +90,18 @@ class ThumbsTest : LazyLogging {
             return ImageUtils.resize(image, THUMBS_WIDTH, newHeight.toInt(), image.type)
         }
 
-        fun cleanFileName(pdfFile: File): String {
+        fun addBorder(image: BufferedImage): BufferedImage {
+            val newImage = BufferedImage(image.width, image.height, image.type)
+            val g2d = newImage.createGraphics()
+            g2d.drawImage(image, 0, 0, null)
+            g2d.color = Color.BLACK
+            g2d.drawRect(0, 0, image.width - 1, image.height - 1)
+            g2d.dispose()
+
+            return newImage
+        }
+
+        fun canonicalFileName(pdfFile: File): String {
             return pdfFile.name.split("_").first()
         }
 

@@ -41,6 +41,7 @@ The unit tests using full PDF books can not be shared publicly.
     <img src="thumbs/baudrillard_output_page_4.jpg"/>
     <img src="thumbs/baudrillard_output_page_5.jpg"/>
     <img src="thumbs/baudrillard_output_page_6.jpg"/>
+    <img src="thumbs/baudrillard_output_page_7.jpg"/>
 </p>
 
 [download PDF](thumbs/baudrillard_output.pdf)
@@ -85,9 +86,6 @@ The unit tests using full PDF books can not be shared publicly.
     <img src="thumbs/edinburgh_output_page_22.jpg"/>
     <img src="thumbs/edinburgh_output_page_23.jpg"/>
     <img src="thumbs/edinburgh_output_page_24.jpg"/>
-    <img src="thumbs/edinburgh_output_page_25.jpg"/>
-    <img src="thumbs/edinburgh_output_page_26.jpg"/>
-    <img src="thumbs/edinburgh_output_page_27.jpg"/>
 </p>
 
 [download PDF](thumbs/edinburgh_output.pdf)

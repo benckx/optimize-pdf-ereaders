@@ -143,8 +143,8 @@ sudo apt-get install tesseract-ocr
 
 # TODO
 
-* Move to Gradle
+* ~~Move to Gradle~~
+* Re-add unit tests that can be shared publicly, adapt the other ones
+* Create a user-friendly runnable
 * Move to Kotlin
 * Finish picture detection
-* Create a user-friendly runnable
-* Re-add unit tests that can be shared publicly, adapt the other ones

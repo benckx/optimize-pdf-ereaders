@@ -67,6 +67,24 @@ class ThumbsTest : LazyLogging {
         const val THUMBS_WIDTH = 190
 
         fun writeThumbs(pdfFile: File, suffix: String) {
+            fun resizeToThumb(image: BufferedImage): BufferedImage {
+                val height = image.height
+                val width = image.width
+                val ratio = THUMBS_WIDTH.toFloat() / width.toFloat()
+                val newHeight = height.toFloat() * ratio
+                return ImageUtils.resize(image, THUMBS_WIDTH, newHeight.toInt(), image.type)
+            }
+
+            fun addBorder(image: BufferedImage): BufferedImage {
+                val newImage = BufferedImage(image.width, image.height, image.type)
+                val g2d = newImage.createGraphics()
+                g2d.drawImage(image, 0, 0, null)
+                g2d.color = Color.BLACK
+                g2d.drawRect(0, 0, image.width - 1, image.height - 1)
+                g2d.dispose()
+                return newImage
+            }
+
             return PDDocument.load(pdfFile)
                 .use { doc ->
                     val pdfRenderer = PDFRenderer(doc)
@@ -80,25 +98,6 @@ class ThumbsTest : LazyLogging {
                             ImageIO.write(thumbImage, "jpg", File(thumbFilePath))
                         }
                 }
-        }
-
-        fun resizeToThumb(image: BufferedImage): BufferedImage {
-            val height = image.height
-            val width = image.width
-            val ratio = THUMBS_WIDTH.toFloat() / width.toFloat()
-            val newHeight = height.toFloat() * ratio
-            return ImageUtils.resize(image, THUMBS_WIDTH, newHeight.toInt(), image.type)
-        }
-
-        fun addBorder(image: BufferedImage): BufferedImage {
-            val newImage = BufferedImage(image.width, image.height, image.type)
-            val g2d = newImage.createGraphics()
-            g2d.drawImage(image, 0, 0, null)
-            g2d.color = Color.BLACK
-            g2d.drawRect(0, 0, image.width - 1, image.height - 1)
-            g2d.dispose()
-
-            return newImage
         }
 
         fun canonicalFileName(pdfFile: File): String {

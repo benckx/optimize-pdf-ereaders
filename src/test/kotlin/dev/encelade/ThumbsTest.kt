@@ -1,7 +1,10 @@
 package dev.encelade
 
+import dev.encelade.processing.Processor
+import dev.encelade.processing.RequestConfig
 import dev.encelade.utils.ImageUtils
 import dev.encelade.utils.LazyLogging
+import org.apache.commons.io.FileUtils.writeByteArrayToFile
 import org.apache.pdfbox.pdmodel.PDDocument
 import org.apache.pdfbox.rendering.ImageType
 import org.apache.pdfbox.rendering.PDFRenderer
@@ -28,16 +31,30 @@ class ThumbsTest : LazyLogging {
     }
 
     @Test
-    fun thumbTest() {
-        val inputs = Files
+    fun generateThumbsFolder() {
+        val inputFiles = Files
             .list(Paths.get(inputFolder))
             .toList()
             .filter { path -> path.name.endsWith("_extract.pdf") }
             .mapNotNull { path -> path.toFile() }
+            .sortedBy { file -> file.name }
 
-        inputs.forEach { file ->
-            logger.info(file.name)
-            writeThumbs(file, "_input_page_")
+        inputFiles.forEach { inputFile ->
+            logger.info(inputFile.name)
+            writeThumbs(inputFile, "_input_page_")
+
+            val requestConfig = RequestConfig
+                .builder()
+                .pdfFile(inputFile)
+                .build()
+
+            val processor = Processor(requestConfig)
+            processor.process()
+            processor.joinThread()
+
+            val outputFile = File(outputFolder + File.separator + cleanFileName(inputFile) + "_output.pdf")
+            writeByteArrayToFile(outputFile, processor.writeToByteArray())
+            writeThumbs(outputFile, "_output_page_")
         }
     }
 
@@ -50,7 +67,7 @@ class ThumbsTest : LazyLogging {
         fun writeThumbs(pdfFile: File, suffix: String) {
             pdfToImages(pdfFile)
                 .forEachIndexed { index, image ->
-                    val fileName = pdfFile.name.replace("_extract.pdf_", "_") + suffix + index + ".jpg"
+                    val fileName = cleanFileName(pdfFile) + suffix + (index + 1) + ".jpg"
                     val filePath = outputFolder + File.separator + fileName
                     ImageIO.write(resize(image), "jpg", File(filePath))
                 }
@@ -63,7 +80,7 @@ class ThumbsTest : LazyLogging {
                     val pdfRenderer = PDFRenderer(doc)
                     IntRange(1, doc.numberOfPages)
                         .map { pageIdx ->
-                            logger.debug("loading $pageIdx of ${pdfFile.name}...")
+                            logger.debug("rendering page $pageIdx of ${pdfFile.name} to BufferedImage...")
                             pdfRenderer.renderImageWithDPI(pageIdx - 1, 300f, imageType)
                         }
                 }
@@ -75,6 +92,10 @@ class ThumbsTest : LazyLogging {
             val ratio = THUMBS_WIDTH.toFloat() / width.toFloat()
             val newHeight = height.toFloat() * ratio
             return ImageUtils.resize(image, THUMBS_WIDTH, newHeight.toInt(), image.type)
+        }
+
+        fun cleanFileName(pdfFile: File): String {
+            return pdfFile.name.replace("_extract.pdf", "")
         }
 
     }

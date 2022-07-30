@@ -57,13 +57,13 @@ public class AngleCorrection {
         if (originalPage.countLines() > 0 && hasCorrectiveAngleData()) {
             correctedMostLikely = rotateInMostLikelyDirection();
 
-            ImageUtils.dumpToImageFile("MOST_LIKELY_", correctedMostLikely);
+//            ImageUtils.dumpToImageFile("MOST_LIKELY_", correctedMostLikely);
 
             if (correctedMostLikely != null) {
                 // if result seems worse or not very different, or angle is too big or too small; take the best of the 3
                 if (seemsMoreSkewedThan(correctedMostLikely, originalPage)) {
                     correctLeastLikely = rotateInLeastLikelyDirection();
-                    ImageUtils.dumpToImageFile("LEAST_LIKELY_", correctLeastLikely);
+//                    ImageUtils.dumpToImageFile("LEAST_LIKELY_", correctLeastLikely);
                     return getBestChoice();
                 } else {
                     return correctedMostLikely;

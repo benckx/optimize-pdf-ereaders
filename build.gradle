@@ -29,3 +29,7 @@ dependencies {
     testImplementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
     testImplementation "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
 }
+
+test {
+    environment "TESSDATA_PREFIX", "tessdata"
+}

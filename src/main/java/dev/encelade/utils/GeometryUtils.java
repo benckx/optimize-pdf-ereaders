@@ -15,7 +15,6 @@ import static java.util.stream.Collectors.toList;
 
 public class GeometryUtils {
 
-
     /**
      * In degree
      * <br>Point(0, 0), Point(0, 100) returns 0 (i.e. a straight vertical line from top to bottom)
@@ -50,7 +49,7 @@ public class GeometryUtils {
         return new Rectangle(newX, newY, newWidth, newHeight);
     }
 
-    public static double getLenght(Line2D line2D) {
+    public static double getLength(Line2D line2D) {
         return distanceBetween(line2D.getP1(), line2D.getP2());
     }
 

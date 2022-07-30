@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import static dev.encelade.utils.GeometryUtils.computeAngle;
-import static dev.encelade.utils.GeometryUtils.getLenght;
+import static dev.encelade.utils.GeometryUtils.getLength;
 import static java.lang.Math.abs;
 import static java.util.stream.Collectors.toList;
 
@@ -39,7 +39,7 @@ public class AngleCorrectionQuadrilateral {
         Line2D line1 = getLine(side1);
         Line2D line2 = getLine(side2);
 
-        return abs(getLenght(line1) - getLenght(line2));
+        return abs(getLength(line1) - getLength(line2));
     }
 
     private Line2D getLine(Side side) {

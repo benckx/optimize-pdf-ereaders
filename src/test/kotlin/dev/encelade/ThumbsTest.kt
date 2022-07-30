@@ -39,23 +39,24 @@ class ThumbsTest : LazyLogging {
             .mapNotNull { path -> path.toFile() }
             .sortedBy { file -> file.name }
 
-        inputFiles.forEach { inputFile ->
-            logger.info(inputFile.name)
-            writeThumbs(inputFile, "_input_page_")
+        inputFiles
+            .forEach { inputFile ->
+                // write thumbs of input file
+                writeThumbs(inputFile, "_input_page_")
 
-            val requestConfig = RequestConfig
-                .builder()
-                .pdfFile(inputFile)
-                .build()
+                // process the file with the lib
+                val requestConfig = RequestConfig.builder().pdfFile(inputFile)
+                val processor = Processor(requestConfig)
+                processor.process()
+                processor.joinThread()
 
-            val processor = Processor(requestConfig)
-            processor.process()
-            processor.joinThread()
+                // write the output
+                val outputFile = File(outputFolder + File.separator + cleanFileName(inputFile) + "_output.pdf")
+                writeByteArrayToFile(outputFile, processor.writeToByteArray())
 
-            val outputFile = File(outputFolder + File.separator + cleanFileName(inputFile) + "_output.pdf")
-            writeByteArrayToFile(outputFile, processor.writeToByteArray())
-            writeThumbs(outputFile, "_output_page_")
-        }
+                // write thumbs of output file
+                writeThumbs(outputFile, "_output_page_")
+            }
     }
 
     private companion object : LazyLogging {
@@ -65,28 +66,27 @@ class ThumbsTest : LazyLogging {
         const val THUMBS_WIDTH = 150
 
         fun writeThumbs(pdfFile: File, suffix: String) {
-            pdfToImages(pdfFile)
+            pdfToThumbs(pdfFile)
                 .forEachIndexed { index, image ->
                     val fileName = cleanFileName(pdfFile) + suffix + (index + 1) + ".jpg"
                     val filePath = outputFolder + File.separator + fileName
-                    ImageIO.write(resize(image), "jpg", File(filePath))
+                    ImageIO.write(image, "jpg", File(filePath))
                 }
         }
 
-        fun pdfToImages(pdfFile: File, imageType: ImageType = ImageType.RGB): List<BufferedImage> {
-            return PDDocument
-                .load(pdfFile)
+        fun pdfToThumbs(pdfFile: File, imageType: ImageType = ImageType.RGB): List<BufferedImage> {
+            return PDDocument.load(pdfFile)
                 .use { doc ->
                     val pdfRenderer = PDFRenderer(doc)
                     IntRange(1, doc.numberOfPages)
                         .map { pageIdx ->
                             logger.debug("rendering page $pageIdx of ${pdfFile.name} to BufferedImage...")
-                            pdfRenderer.renderImageWithDPI(pageIdx - 1, 300f, imageType)
+                            resizeToThumb(pdfRenderer.renderImageWithDPI(pageIdx - 1, 300f, imageType))
                         }
                 }
         }
 
-        fun resize(image: BufferedImage): BufferedImage {
+        fun resizeToThumb(image: BufferedImage): BufferedImage {
             val height = image.height
             val width = image.width
             val ratio = THUMBS_WIDTH.toFloat() / width.toFloat()
@@ -95,7 +95,7 @@ class ThumbsTest : LazyLogging {
         }
 
         fun cleanFileName(pdfFile: File): String {
-            return pdfFile.name.replace("_extract.pdf", "")
+            return pdfFile.name.split("_").first()
         }
 
     }

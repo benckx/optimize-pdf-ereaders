@@ -39,6 +39,10 @@ public class Processor {
     private Counter processedPages;
     private int numberOfPagesToProcess;
 
+    public Processor(RequestConfig.RequestConfigBuilder builder) {
+        this(builder.build());
+    }
+
     public Processor(RequestConfig requestConfig) {
         this.requestConfig = requestConfig;
         int effectiveMaxPage = getEffectiveMaxPage(requestConfig);

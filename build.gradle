@@ -28,8 +28,10 @@ dependencies {
     // right now only unit tests will be in Kotlin, but long-term I might want to re-write
     testImplementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
     testImplementation "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.0.0'
 }
 
 test {
     environment "TESSDATA_PREFIX", "tessdata"
+//    useJUnitPlatform()
 }

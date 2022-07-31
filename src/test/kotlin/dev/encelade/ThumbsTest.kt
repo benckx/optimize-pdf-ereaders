@@ -8,8 +8,8 @@ import dev.encelade.utils.LazyLogging
 import org.apache.pdfbox.pdmodel.PDDocument
 import org.apache.pdfbox.rendering.ImageType
 import org.apache.pdfbox.rendering.PDFRenderer
-import org.junit.Ignore
-import org.junit.Test
+import org.junit.jupiter.api.Test
+
 import java.awt.Color
 import java.awt.image.BufferedImage
 import java.io.File
@@ -32,7 +32,7 @@ class ThumbsTest : LazyLogging {
         outputFolderFile.mkdir()
     }
 
-    @Ignore
+    @Test
     fun generateThumbsFolder() {
         val inputFiles = Files
             .list(Paths.get(INPUT_FOLDER))

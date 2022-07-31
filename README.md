@@ -4,18 +4,20 @@
 
 # About
 
-PDF books and articles found online are usually poorly rendered on small e-readers (e.g. Kindle Oasis).
+PDF books and articles found online are usually poorly rendered on small e-readers (e.g. Kindle Oasis), as a whole PDF
+page is displayed on the small screen.
 
-This lib uses OCR to correct the skewed angle of the page, crop around the text and re-paginate; as to optimize
-for the best reading experience on small e-readers.
+This lib uses OCR to correct the skewed angle of the page, crop around the text and re-paginate; as to optimize for the
+best reading experience on small e-readers.
 
-The code was initially written in 2018, along with an online converter website that I decided to take down as it would
-cost quite a bit (OCR and image processing being quite resource-intensive). I also couldn't maintain it as I was working
-full time.
+The code was initially written in 2018 in Java, alongside an online converter website that I decided to take down as it
+would cost quite a bit (OCR and image processing being quite resource-intensive). I also couldn't maintain it as I was
+working full time.
 
 Therefore, the project probably needs a bit of a cleanup.
 
-The unit tests using full PDF books can not be shared publicly.
+The unit tests using full PDF books can not be shared publicly, so I will re-add them later, using only individual pages
+rather than complete books.
 
 ## Examples
 

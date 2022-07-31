@@ -51,7 +51,7 @@ class ThumbsTest : LazyLogging {
                 processor.process()
                 processor.joinThread()
 
-                // write the output
+                // write the output file
                 val outputFile = File(OUTPUT_FOLDER + File.separator + canonicalFileName(inputFile) + "_output.pdf")
                 writeByteArrayToFile(outputFile, processor.writeToByteArray())
 

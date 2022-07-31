@@ -2,7 +2,7 @@ package dev.encelade
 
 import dev.encelade.processing.Processor
 import dev.encelade.processing.RequestConfig
-import dev.encelade.testutils.StatusLogger
+import dev.encelade.testutils.ProgressLogger
 import dev.encelade.utils.ImageUtils
 import dev.encelade.utils.LazyLogging
 import org.apache.pdfbox.pdmodel.PDDocument
@@ -48,7 +48,7 @@ class ThumbsTest : LazyLogging {
                 // process the file with the lib
                 val requestConfig = RequestConfig.builder().pdfFile(inputFile)
                 val processor = Processor(requestConfig)
-                Thread(StatusLogger(processor)).start()
+                Thread(ProgressLogger(processor)).start()
                 processor.process()
                 processor.joinThread()
 

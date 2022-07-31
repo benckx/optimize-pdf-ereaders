@@ -7,7 +7,7 @@ import dev.encelade.utils.TimeUtils.formatMillis
 import java.text.DecimalFormat
 import java.time.Instant
 
-class StatusLogger(private val processor: Processor) : Runnable, LazyLogging {
+class ProgressLogger(private val processor: Processor) : Runnable, LazyLogging {
 
     private val df = DecimalFormat("##.##%")
 

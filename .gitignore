@@ -2,6 +2,7 @@
 /target
 *.gradle/
 build/
-thumbs-test-output/
 *.log
 *.jpg
+*.png
+thumbs-test-output/

@@ -31,7 +31,6 @@ public class Printer {
     private final static Logger logger = Logger.getLogger(Printer.class.getName());
 
     private static final DecimalFormat DEBUG_VALUE_FORMAT = new DecimalFormat("####0.00");
-    private static final DecimalFormat PAGE_NUM_FORMAT = new DecimalFormat("0000");
 
     private static final boolean PRINT_IMAGE = true;
     private static final boolean PRINT_SPACES_AND_MARGIN = true;
@@ -72,14 +71,8 @@ public class Printer {
         graphics2D.setStroke(backupStroke);
     }
 
-    private String getFormattedPageNum() {
-        String prefix = PAGE_NUM_FORMAT.format(page.getIdx().get(0));
-        int suffix = page.getIdx().size() == 1 ? 0 : (page.getIdx().get(1));
-        return prefix + "." + suffix;
-    }
-
     public void dumpToImageFile() {
-        String indexedFileName = fileName + getFormattedPageNum() + ".jpg";
+        String indexedFileName = fileName + ".png";
 
         long begin = currentTimeMillis();
         try {
@@ -101,7 +94,7 @@ public class Printer {
             graphics2D.dispose();
 
             // Save as image
-            ImageIO.write(outputImage, "jpeg", new File(indexedFileName));
+            ImageIO.write(outputImage, "png", new File(indexedFileName));
         } catch (IOException e) {
             e.printStackTrace();
         }

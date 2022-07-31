@@ -2,18 +2,15 @@ package dev.encelade.processing.corrections
 
 import com.google.common.base.CaseFormat.UPPER_CAMEL
 import com.google.common.base.CaseFormat.UPPER_UNDERSCORE
-import com.google.common.io.Resources
 import dev.encelade.ocr.model.Page
-import dev.encelade.testutils.TestUtils
-import dev.encelade.testutils.TestUtils.loadImageAsPage
+import dev.encelade.testutils.TestUtils.formatPageNum
+import dev.encelade.testutils.TestUtils.loadPageFromImage
 import dev.encelade.utils.LazyLogging
-import org.apache.commons.lang3.StringUtils
+import dev.encelade.utils.Printer
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
-import java.io.File
-import javax.imageio.ImageIO
 
 class AngleCorrectionTest : LazyLogging {
 
@@ -24,11 +21,7 @@ class AngleCorrectionTest : LazyLogging {
         logger.info("pageNum: $pageNum")
         logger.info("angle [EXPECTED]: $expectedCorrection")
 
-        val formattedPageNum = StringUtils.leftPad(pageNum.toInt().toString(), 4, '0')
-        val imageFilePath = "images" + File.separator + fileName + File.separator + formattedPageNum + ".png"
-        val imageFile = File(Resources.getResource(imageFilePath).file)
-        val image = ImageIO.read(imageFile)
-        val page = loadImageAsPage(image, pageNum)
+        val page = loadPageFromImage(fileName, pageNum)
         page.detectCorrectiveAngle()
         val correctedPage = page.correctAngle()
 
@@ -38,15 +31,11 @@ class AngleCorrectionTest : LazyLogging {
         assertEquals(expectedCorrection, correctedPage.correctedAngleValue, 0.1)
     }
 
-    private fun dumpPage(fileName: String, prefix: String, page: Page) {
-        val dumpFileName =
-            fileName.uppercase() +
-                    "_" + prefix +
-                    "_" + UPPER_CAMEL.to(UPPER_UNDERSCORE, javaClass.simpleName) + "_"
-
-        TestUtils.dumpPage(dumpFileName, page)
+    private fun dumpPage(fileName: String, suffix: String, page: Page) {
+        val testName = UPPER_CAMEL.to(UPPER_UNDERSCORE, javaClass.simpleName)
+        val dumpFileName = testName + "_" + fileName.uppercase() + "_" + formatPageNum(page.idx.first()) + "_" + suffix
+        Printer(page, dumpFileName).dumpToImageFile()
     }
-
 
     companion object {
 

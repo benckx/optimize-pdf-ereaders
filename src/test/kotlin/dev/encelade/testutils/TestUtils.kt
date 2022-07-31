@@ -1,25 +1,28 @@
 package dev.encelade.testutils
 
+import com.google.common.io.Resources
 import dev.encelade.ocr.OCR
 import dev.encelade.ocr.model.Page
 import dev.encelade.utils.LazyLogging
-import dev.encelade.utils.Printer
 import junit.framework.TestCase.assertTrue
+import org.apache.commons.lang3.StringUtils
 import java.awt.image.BufferedImage
+import java.io.File
+import java.io.File.separator
 import java.util.*
+import javax.imageio.ImageIO
 
 object TestUtils : LazyLogging {
 
-    fun dumpPage(fileName: String, page: Page) {
-        Printer(page, fileName).dumpToImageFile()
+    fun formatPageNum(pageNum: Int): String {
+        return StringUtils.leftPad(pageNum.toString(), 4, '0')
     }
 
-    fun getIntegerPart(pageNum: Double): Int {
-        return splitPageNum(pageNum)[0].toInt()
-    }
-
-    fun loadImageAsPage(inputImage: BufferedImage, pageNum: Double): Page {
-        return loadImageAsPage(pageNum, inputImage)
+    fun loadPageFromImage(fileName: String, pageNum: Double): Page {
+        val imageFilePath = "images" + separator + fileName + separator + formatPageNum(pageNum.toInt()) + ".png"
+        val imageFile = File(Resources.getResource(imageFilePath).file)
+        val image = ImageIO.read(imageFile)
+        return loadImageAsPage(pageNum, image)
     }
 
     private fun loadImageAsPage(pageNum: Double, inputImage: BufferedImage): Page {
@@ -38,6 +41,10 @@ object TestUtils : LazyLogging {
             2 -> return getRightPage(inputImage, integerPart)
         }
         throw IllegalArgumentException("pageNum not parsable -> $pageNum")
+    }
+
+    private fun getIntegerPart(pageNum: Double): Int {
+        return splitPageNum(pageNum)[0].toInt()
     }
 
     private fun splitPageNum(pageNum: Double): Array<String> {

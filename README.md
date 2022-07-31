@@ -149,5 +149,5 @@ The data in `tessdata/` is found on https://github.com/tesseract-ocr/tessdata_be
 * Re-add unit tests that can be shared publicly, adapt the other ones
 * Add language as a parameter
 * Create a user-friendly runnable
-* Move to Kotlin
 * Finish picture detection
+* Re-write in Kotlin?

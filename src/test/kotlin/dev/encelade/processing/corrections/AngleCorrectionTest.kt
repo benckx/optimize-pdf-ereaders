@@ -1,18 +1,14 @@
 package dev.encelade.processing.corrections
 
-import com.google.common.base.CaseFormat.UPPER_CAMEL
-import com.google.common.base.CaseFormat.UPPER_UNDERSCORE
-import dev.encelade.ocr.model.Page
-import dev.encelade.testutils.TestUtils.formatPageNum
+import dev.encelade.testutils.PageDumpHelper
 import dev.encelade.testutils.TestUtils.loadPageFromImage
 import dev.encelade.utils.LazyLogging
-import dev.encelade.utils.Printer
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
 
-class AngleCorrectionTest : LazyLogging {
+class AngleCorrectionTest : PageDumpHelper, LazyLogging {
 
     @ParameterizedTest
     @MethodSource("buildParameters")
@@ -23,18 +19,12 @@ class AngleCorrectionTest : LazyLogging {
 
         val page = loadPageFromImage(fileName, pageNum)
         page.detectCorrectiveAngle()
-        dumpPage(fileName, "BEFORE", page)
+        dumpPage(page, fileName, "ANALYZED")
 
         val correctedPage = page.correctAngle()
-        dumpPage(fileName, "FIXED", correctedPage)
+        dumpPage(correctedPage, fileName, "CORRECTED")
 
         assertEquals(expectedCorrection, correctedPage.correctedAngleValue, 0.1)
-    }
-
-    private fun dumpPage(fileName: String, suffix: String, page: Page) {
-        val testName = UPPER_CAMEL.to(UPPER_UNDERSCORE, javaClass.simpleName)
-        val dumpFileName = testName + "_" + fileName.uppercase() + "_" + formatPageNum(page.idx.first()) + "_" + suffix
-        Printer(page, dumpFileName).dumpToImageFile()
     }
 
     companion object {

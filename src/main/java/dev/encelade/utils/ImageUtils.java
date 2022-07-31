@@ -108,12 +108,12 @@ public class ImageUtils {
     // https://stackoverflow.com/questions/28439136/java-image-compression-for-any-image-formatjpg-png-gif
     public static BufferedImage compress(BufferedImage image, float quality) {
         try {
-            ByteArrayOutputStream os = new ByteArrayOutputStream();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-            Iterator<ImageWriter> writers = ImageIO.getImageWritersByFormatName("jpg");
+            Iterator<ImageWriter> writers = ImageIO.getImageWritersByFormatName("png");
             ImageWriter writer = writers.next();
 
-            ImageOutputStream ios = ImageIO.createImageOutputStream(os);
+            ImageOutputStream ios = ImageIO.createImageOutputStream(baos);
             writer.setOutput(ios);
 
             ImageWriteParam param = writer.getDefaultWriteParam();
@@ -125,7 +125,7 @@ public class ImageUtils {
             // End of check
             writer.write(null, new IIOImage(image, null, null), param);
 
-            byte[] bytes = os.toByteArray();
+            byte[] bytes = baos.toByteArray();
             return ImageIO.read(new ByteArrayInputStream(bytes));
         } catch (IOException e) {
             logger.warning(e.toString());

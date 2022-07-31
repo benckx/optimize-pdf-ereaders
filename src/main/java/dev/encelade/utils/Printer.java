@@ -72,7 +72,7 @@ public class Printer {
     }
 
     public void dumpToImageFile() {
-        String indexedFileName = fileName + ".png";
+        String fileNameWithExtension = fileName + ".png";
 
         long begin = currentTimeMillis();
         try {
@@ -94,11 +94,11 @@ public class Printer {
             graphics2D.dispose();
 
             // Save as image
-            ImageIO.write(outputImage, "png", new File(indexedFileName));
+            ImageIO.write(outputImage, "png", new File(fileNameWithExtension));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        logger.info("end dump of " + indexedFileName + " (" + formatMillis(currentTimeMillis() - begin) + ")");
+        logger.info("dumped " + fileNameWithExtension + " in" + formatMillis(currentTimeMillis() - begin));
     }
 
     private void printBackground() {

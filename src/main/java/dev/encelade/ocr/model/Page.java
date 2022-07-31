@@ -17,9 +17,8 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.*;
 import java.util.List;
-import java.util.logging.Logger;
+import java.util.*;
 import java.util.stream.IntStream;
 
 import static dev.encelade.ocr.model.Side.*;
@@ -38,8 +37,6 @@ import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
  * The image data is stored as a byte[] instead of a {@link BufferedImage} to consume less space in the heap.
  */
 public class Page {
-
-    private final static Logger logger = Logger.getLogger(Page.class.getName());
 
     private final static float MAX_RATIO_INTERSECTING_WORDS_TWO_PAGES_LAYOUT = 0.01f;
 
@@ -84,7 +81,7 @@ public class Page {
     private static byte[] compressImage(BufferedImage bufferedImage) {
         try {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            ImageIO.write(bufferedImage, "jpg", byteArrayOutputStream);
+            ImageIO.write(bufferedImage, "png", byteArrayOutputStream);
             return byteArrayOutputStream.toByteArray();
         } catch (IOException e) {
             throw new RuntimeException(e);

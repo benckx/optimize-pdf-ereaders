@@ -51,7 +51,7 @@ public class PDFUtils {
 
     private static byte[] getByteArray(BufferedImage image) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write(image, "jpg", baos);
+        ImageIO.write(image, "png", baos);
         return baos.toByteArray();
     }
 

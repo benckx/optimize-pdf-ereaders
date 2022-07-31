@@ -10,7 +10,7 @@ import static java.util.Comparator.comparingInt;
 import static java.util.stream.Collectors.toList;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 
-public abstract class /**/WordsContainerTextZone extends TextZone {
+public abstract class WordsContainerTextZone extends TextZone {
 
     private Map<Side, List<Word>> wordsOnSidesBorders;
 

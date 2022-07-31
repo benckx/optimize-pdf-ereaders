@@ -23,9 +23,9 @@ class AngleCorrectionTest : LazyLogging {
 
         val page = loadPageFromImage(fileName, pageNum)
         page.detectCorrectiveAngle()
-        val correctedPage = page.correctAngle()
-
         dumpPage(fileName, "BEFORE", page)
+
+        val correctedPage = page.correctAngle()
         dumpPage(fileName, "FIXED", correctedPage)
 
         assertEquals(expectedCorrection, correctedPage.correctedAngleValue, 0.1)

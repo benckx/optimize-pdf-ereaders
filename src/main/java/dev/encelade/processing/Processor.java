@@ -6,6 +6,7 @@ import dev.encelade.pagination.Paginator;
 import dev.encelade.utils.Counter;
 import dev.encelade.utils.pdf.PDFUtils;
 import com.itextpdf.text.DocumentException;
+import lombok.Getter;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -28,6 +29,7 @@ public class Processor {
 
     private static final boolean PRINT_OUTPUT = false;
 
+    @Getter
     private final RequestConfig requestConfig;
 
     private List<Page> pages;
@@ -174,7 +176,7 @@ public class Processor {
         try {
             File outputFile = new File(path);
             FileOutputStream fileOutputStream = new FileOutputStream(outputFile);
-            PDFUtils.imagesToPDF(this.outputImages, fileOutputStream, this.requestConfig.getQuality());
+            PDFUtils.imagesToPDF(outputImages, fileOutputStream, requestConfig.getQuality());
             return outputFile;
         } catch (DocumentException | IOException e) {
             throw new RuntimeException(e);

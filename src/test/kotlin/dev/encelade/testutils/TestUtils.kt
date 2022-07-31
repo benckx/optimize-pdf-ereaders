@@ -3,11 +3,16 @@ package dev.encelade.testutils
 import dev.encelade.ocr.OCR
 import dev.encelade.ocr.model.Page
 import dev.encelade.utils.LazyLogging
+import dev.encelade.utils.Printer
 import junit.framework.TestCase.assertTrue
 import java.awt.image.BufferedImage
 import java.util.*
 
 object TestUtils : LazyLogging {
+
+    fun dumpPage(fileName: String, page: Page) {
+        Printer(page, fileName).dumpToImageFile()
+    }
 
     fun getIntegerPart(pageNum: Double): Int {
         return splitPageNum(pageNum)[0].toInt()

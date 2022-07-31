@@ -69,11 +69,9 @@ class ThumbsTest : LazyLogging {
 
         fun writeThumbs(pdfFile: File, suffix: String) {
             fun resizeToThumb(image: BufferedImage): BufferedImage {
-                val height = image.height
-                val width = image.width
-                val ratio = THUMBS_WIDTH.toFloat() / width.toFloat()
-                val newHeight = height.toFloat() * ratio
-                return ImageUtils.resize(image, THUMBS_WIDTH, newHeight.toInt(), image.type)
+                val ratio = THUMBS_WIDTH / image.width.toFloat()
+                val newHeight = (image.height * ratio).toInt()
+                return ImageUtils.resize(image, THUMBS_WIDTH, newHeight, image.type)
             }
 
             fun addBorder(image: BufferedImage): BufferedImage {

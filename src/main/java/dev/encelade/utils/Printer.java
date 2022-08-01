@@ -98,7 +98,7 @@ public class Printer {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        logger.info("dumped " + fileNameWithExtension + " in" + formatMillis(currentTimeMillis() - begin));
+        logger.info("dumped " + fileNameWithExtension + " in " + formatMillis(currentTimeMillis() - begin));
     }
 
     private void printBackground() {

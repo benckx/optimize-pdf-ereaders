@@ -24,7 +24,7 @@ class AngleCorrectionTest : PageDumpHelper, LazyLogging {
         val correctedPage = page.correctAngle()
         dumpPage(correctedPage, fileName, "CORRECTED")
 
-        assertEquals(expectedCorrection, correctedPage.correctedAngleValue, 0.1)
+        assertEquals(expectedCorrection, correctedPage.correctedAngleValue, 0.05)
     }
 
     companion object {
@@ -32,8 +32,12 @@ class AngleCorrectionTest : PageDumpHelper, LazyLogging {
         @JvmStatic
         fun buildParameters(): List<Arguments> {
             return listOf(
-                Arguments.of("baudrillard", 17.0, 1.44),
-                Arguments.of("baudrillard", 20.0, 0.46)
+                Arguments.of("baudrillard", 3.0, 0),
+                Arguments.of("baudrillard", 5.0, 0.88),
+                Arguments.of("baudrillard", 8.0, -1.07),
+                Arguments.of("baudrillard", 17.0, 1.49),
+                Arguments.of("baudrillard", 20.0, 0.46),
+                Arguments.of("baudrillard", 41.0, 3.23)
             )
         }
 

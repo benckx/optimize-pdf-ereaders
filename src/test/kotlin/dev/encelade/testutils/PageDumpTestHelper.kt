@@ -6,7 +6,7 @@ import dev.encelade.ocr.model.Page
 import dev.encelade.testutils.TestUtils.formatPageNum
 import dev.encelade.utils.Printer
 
-interface PageDumpHelper {
+interface PageDumpTestHelper {
 
     fun dumpPage(page: Page, fileName: String, suffix: String) {
         val testName = UPPER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE, javaClass.simpleName)

@@ -9,7 +9,6 @@ import org.apache.commons.lang3.StringUtils
 import java.awt.image.BufferedImage
 import java.io.File
 import java.io.File.separator
-import java.util.*
 import javax.imageio.ImageIO
 
 object TestUtils : LazyLogging {
@@ -22,12 +21,12 @@ object TestUtils : LazyLogging {
         val imageFilePath = "images" + separator + fileName + separator + formatPageNum(pageNum.toInt()) + ".png"
         val imageFile = File(Resources.getResource(imageFilePath).file)
         val image = ImageIO.read(imageFile)
-        return loadImageAsPage(pageNum, image)
+        return loadImageAsPage(image, pageNum)
     }
 
-    private fun loadImageAsPage(pageNum: Double, inputImage: BufferedImage): Page {
+    private fun loadImageAsPage(inputImage: BufferedImage, pageNum: Double): Page {
         val split = splitPageNum(pageNum)
-        logger.info(Arrays.asList(*split).toString())
+        logger.info(split.toList().toString())
         assert(split.size == 2)
         val integerPart = getIntegerPart(pageNum)
         when (split[1].toInt()) {
@@ -48,7 +47,8 @@ object TestUtils : LazyLogging {
     }
 
     private fun splitPageNum(pageNum: Double): Array<String> {
-        return java.lang.Double.toString(pageNum)
+        return pageNum
+            .toString()
             .split("\\.".toRegex())
             .dropLastWhile { it.isEmpty() }
             .toTypedArray()

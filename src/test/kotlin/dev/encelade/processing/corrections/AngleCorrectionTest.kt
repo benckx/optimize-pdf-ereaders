@@ -41,7 +41,9 @@ class AngleCorrectionTest : PageDumpTestHelper, LazyLogging {
                 Arguments.of("baudrillard", 22.0, -0.84),
                 Arguments.of("baudrillard", 23.0, 1.37),
                 Arguments.of("baudrillard", 29.0, 1.83),
-                Arguments.of("baudrillard", 41.0, 3.23)
+                Arguments.of("baudrillard", 41.0, 3.23),
+                Arguments.of("baudrillard", 66.0, -1.42),
+                Arguments.of("baudrillard", 69.0, 1.45)
             )
         }
 

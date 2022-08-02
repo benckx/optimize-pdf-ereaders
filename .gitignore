@@ -3,6 +3,5 @@
 *.gradle/
 build/
 *.log
-*.jpg
-*.png
 thumbs-test-output/
+test-output/

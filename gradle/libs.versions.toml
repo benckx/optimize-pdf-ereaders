@@ -1,7 +1,7 @@
 [versions]
 kotlin = "2.4.20"
 benManesVersions = "0.64.0"
-lombok = "1.18.34"
+lombok = "1.18.48"
 itextpdf = "5.5.13.6"
 tess4j = "4.1.0"
 pdfbox = "2.0.9"

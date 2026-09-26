@@ -1,0 +1,31 @@
+[versions]
+kotlin = "2.4.20"
+benManesVersions = "0.64.0"
+lombok = "1.18.34"
+itextpdf = "5.5.9"
+tess4j = "4.1.0"
+pdfbox = "2.0.9"
+levigoJbig2 = "2.0"
+guava = "23.6-jre"
+commonsLang3 = "3.7"
+commonsMath3 = "3.6.1"
+commonsCollections4 = "4.4"
+junit = "4.13.2"
+
+[libraries]
+lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
+itextpdf = { module = "com.itextpdf:itextpdf", version.ref = "itextpdf" }
+tess4j = { module = "net.sourceforge.tess4j:tess4j", version.ref = "tess4j" }
+pdfbox = { module = "org.apache.pdfbox:pdfbox", version.ref = "pdfbox" }
+levigo-jbig2 = { module = "com.levigo.jbig2:levigo-jbig2-imageio", version.ref = "levigoJbig2" }
+guava = { module = "com.google.guava:guava", version.ref = "guava" }
+commons-lang3 = { module = "org.apache.commons:commons-lang3", version.ref = "commonsLang3" }
+commons-math3 = { module = "org.apache.commons:commons-math3", version.ref = "commonsMath3" }
+commons-collections4 = { module = "org.apache.commons:commons-collections4", version.ref = "commonsCollections4" }
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
+junit = { module = "junit:junit", version.ref = "junit" }
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+versions = { id = "com.github.ben-manes.versions", version.ref = "benManesVersions" }

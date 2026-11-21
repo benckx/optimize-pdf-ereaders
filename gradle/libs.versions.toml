@@ -2,7 +2,7 @@
 kotlin = "2.4.21"
 benManesVersions = "0.67.0"
 lombok = "1.18.48"
-itextpdf = "5.5.13.6"
+itextpdf = "5.5.13.7"
 tess4j = "4.1.0"
 pdfbox = "2.0.9"
 levigoJbig2 = "2.0"
